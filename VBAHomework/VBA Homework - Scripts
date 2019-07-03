@@ -1,0 +1,58 @@
+Sub kicker()
+    'Dim letter
+    
+    'For Each letter In Array("A", "B", "C", "D", "E", "F", "P")
+
+    Dim datasheet As Worksheet
+    For Each datasheet In ThisWorkbook.Worksheets
+        'sheets(letter).Select
+        datasheet.Select
+        volume_ticker_easy
+    Next
+    
+End Sub
+Sub volume_ticker_easy()
+
+    Dim a As Integer
+    Dim ws_num As Integer
+    Dim starting_ws As Worksheet
+    
+    Dim ticker As String
+    
+    Dim vol_total As Double
+    vol_total = 0
+    
+    LastRow = [A1].CurrentRegion.Rows.Count
+    
+    
+    Dim Summary_Table_Row As Integer
+     Summary_Table_Row = 2
+    
+    Range("J1").Value = "Total Stock Volume"
+    Range("I1").Value = "Ticker"
+  
+    For i = 2 To LastRow
+      
+        If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+    
+            ticker = Cells(i, 1).Value
+    
+            vol_total = vol_total + Cells(i, 7).Value
+    
+            Range("I" & Summary_Table_Row).Value = ticker
+            Range("J" & Summary_Table_Row).Value = vol_total
+    
+            Summary_Table_Row = Summary_Table_Row + 1
+    
+            vol_total = 0
+     
+        Else
+    
+            vol_total = vol_total + Cells(i, 7).Value
+    
+        End If
+    
+    Next i
+    
+    
+End Sub
